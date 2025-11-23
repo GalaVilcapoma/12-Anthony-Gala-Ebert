@@ -1,0 +1,53 @@
+<!-- index.html: Formulario de contacto -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CloudContacts - Nuevo Contacto</title>
+    <link href="/static/css/output.css" rel="stylesheet">
+    <link href="/static/css/index.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="/static/js/index.js" defer></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+    <div class="w-full max-w-md bg-white rounded-lg shadow-lg p-6" style="font-family: 'Roboto', sans-serif;">
+        <h1 class="text-2xl font-bold mb-6 text-center flex items-center justify-center">
+            <span class="material-icons text-blue-600 mr-2">person_add</span>
+            Agregar Contacto
+        </h1>
+        <form action="/" method="post" class="space-y-4">
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                            <div class="mb-4">
+                            {% for category, message in messages %}
+                                <div class="{{ 'error-msg' if category == 'error' else 'success-msg' }}">{{ message }}</div>
+                            {% endfor %}
+                            </div>
+                        {% endif %}
+                    {% endwith %}
+            <div>
+                <label for="nombre" class="block text-sm font-medium text-gray-700">Nombre Completo</label>
+                <input type="text" id="nombre" name="nombre" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-lg py-3 px-4 input-anim">
+            </div>
+            <div>
+                <label for="correo" class="block text-sm font-medium text-gray-700">Correo Electrónico</label>
+                <input type="email" id="correo" name="correo" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-lg py-3 px-4 input-anim">
+            </div>
+            <div>
+                <label for="telefono" class="block text-sm font-medium text-gray-700">Teléfono (Opcional)</label>
+                <input type="text" id="telefono" name="telefono" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-lg py-3 px-4 input-anim">
+            </div>
+            <button type="submit" class="w-full py-2 px-4 bg-blue-600 text-white rounded-md btn-anim flex items-center justify-center">
+                <span class="material-icons text-white mr-2">save</span> Guardar
+            </button>
+        </form>
+        <div class="mt-4 text-center">
+            <a href="/contacts" class="text-blue-600 hover:underline flex items-center justify-center">
+                <span class="material-icons text-blue-600 mr-1">list</span> Ver lista de contactos
+            </a>
+        </div>
+    </div>
+</body>
+</html>

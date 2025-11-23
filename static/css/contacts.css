@@ -1,0 +1,12 @@
+/* Fondo decorativo y animaciones para contacts.html */
+body {
+    background: linear-gradient(120deg, #f0fdfa 0%, #e0e7ff 100%);
+}
+
+.table-anim tbody tr {
+    transition: background 0.2s, transform 0.2s;
+}
+.table-anim tbody tr:hover {
+    background: #dbeafe;
+    transform: scale(1.01);
+}

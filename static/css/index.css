@@ -1,0 +1,33 @@
+/* Fondo decorativo y animaciones para index.html */
+body {
+    background: linear-gradient(135deg, #e0e7ff 0%, #f0fdfa 100%);
+}
+
+.input-anim {
+    transition: box-shadow 0.3s, transform 0.3s;
+}
+.input-anim:focus {
+    box-shadow: 0 0 0 2px #2563eb;
+    transform: scale(1.03);
+}
+
+.btn-anim {
+    transition: background 0.3s, transform 0.2s;
+}
+.btn-anim:hover {
+    background: #2563eb;
+    transform: translateY(-2px) scale(1.05);
+}
+
+.error-msg {
+    color: #dc2626;
+    font-size: 0.95rem;
+    margin-top: 0.5rem;
+    text-align: center;
+}
+.success-msg {
+    color: #16a34a;
+    font-size: 0.95rem;
+    margin-top: 0.5rem;
+    text-align: center;
+}

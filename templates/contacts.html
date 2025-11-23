@@ -1,0 +1,75 @@
+<!-- contacts.html: Tabla de contactos -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CloudContacts - Lista de Contactos</title>
+    <link href="/static/css/output.css" rel="stylesheet">
+    <link href="/static/css/contacts.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="/static/js/contacts.js" defer></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+    <div class="w-full max-w-3xl bg-white rounded-lg shadow-lg p-6" style="font-family: 'Roboto', sans-serif;">
+        <h1 class="text-2xl font-bold mb-6 text-center flex items-center justify-center">
+            <span class="material-icons text-blue-600 mr-2">list</span>
+            Lista de Contactos
+        </h1>
+        <div class="overflow-x-auto">
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                            <div class="mb-4">
+                            {% for category, message in messages %}
+                                <div class="{{ 'error-msg' if category == 'error' else 'success-msg' }}">{{ message }}</div>
+                            {% endfor %}
+                            </div>
+                        {% endif %}
+                    {% endwith %}
+            <table class="min-w-full divide-y divide-gray-200 table-anim">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase"><span class="material-icons text-gray-500 align-middle">person</span> Nombre</th>
+                        <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase"><span class="material-icons text-gray-500 align-middle">email</span> Correo</th>
+                        <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase"><span class="material-icons text-gray-500 align-middle">call</span> Teléfono</th>
+                        <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase"><span class="material-icons text-gray-500 align-middle">calendar_today</span> Fecha/Hora</th>
+                        <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for contacto in contactos %}
+                    <tr>
+                        <td class="px-4 py-2">{{ contacto.nombre }}</td>
+                        <td class="px-4 py-2">{{ contacto.correo }}</td>
+                        <td class="px-4 py-2">{{ contacto.telefono or '-' }}</td>
+                        <td class="px-4 py-2">{{ contacto.fecha_registro.strftime('%d/%m/%Y %H:%M') if contacto.fecha_registro else '' }}</td>
+                        <td class="px-4 py-2 flex gap-2">
+                            <form action="/edit/{{ contacto.correo }}" method="get" style="display:inline;">
+                                <button type="submit" class="bg-yellow-400 hover:bg-yellow-500 text-white px-2 py-1 rounded flex items-center">
+                                    <span class="material-icons text-white text-base">edit</span>
+                                </button>
+                            </form>
+                            <form action="/delete/{{ contacto.correo }}" method="post" style="display:inline;" onsubmit="return confirm('¿Seguro que deseas eliminar este contacto?');">
+                                <button type="submit" class="bg-red-500 hover:bg-red-600 text-white px-2 py-1 rounded flex items-center">
+                                    <span class="material-icons text-white text-base">delete</span>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="4" class="px-4 py-2 text-center text-gray-500">No hay contactos registrados.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="mt-4 text-center">
+            <a href="/" class="text-blue-600 hover:underline flex items-center justify-center">
+                <span class="material-icons text-blue-600 mr-1">person_add</span> Agregar nuevo contacto
+            </a>
+        </div>
+    </div>
+</body>
+</html>
